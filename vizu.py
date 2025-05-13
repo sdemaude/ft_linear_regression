@@ -17,6 +17,10 @@ def main():
         return
 
     plot_data(df)
+    # Normalize the features
+    df['km'] = (df['km'] - df['km'].mean()) / df['km'].std()
+    df['price'] = (df['price'] - df['price'].mean()) / df['price'].std()
+    plot_data(df)
 
 if __name__ == "__main__":
     main()

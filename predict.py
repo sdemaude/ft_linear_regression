@@ -1,8 +1,8 @@
 import utils as utils
 
 def main():
-    theta0 = 3.8117657178797034e-17
-    theta1 = -0.1416792924209209
+    theta0 = 8499.599649933214
+    theta1 = -0.02144896359170229
 
     try:
         mileage = float(input("Enter the mileage of the car: "))
