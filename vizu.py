@@ -1,26 +1,38 @@
 import pandas as pd
 import matplotlib.pyplot as plt
+import numpy as np
 
-def plot_data(df):
-    plt.scatter(df['km'], df['price'], color='blue', alpha=0.5)
-    plt.title('Scatter plot of km vs price')
-    plt.xlabel('km')
-    plt.ylabel('price')
-    plt.grid()
+def plot_data(df, param):
+    x = df['km']
+    y = df['price']
+
+    plt.scatter(x, y, color='LightCoral', label='Data', alpha=0.5)
+
+    if not param.empty:
+        b = param.iloc[0, 0]
+        a = param.iloc[0, 1]
+
+        x_line = np.linspace(x.min(), x.max(), 100)
+        y_line = a * x_line + b
+        plt.plot(x_line, y_line, color='OliveDrab', label=f'Regression: y = {a:.2f}x + {b:.2f}')
+
+    plt.xlabel('Mileage')
+    plt.ylabel('Price')
+    plt.title('Price vs Mileage with Regression Line')
+    plt.legend()
+    plt.grid(True)
     plt.show()
 
 def main():
     df = pd.read_csv('data.csv')
+    param = pd.DataFrame()
+    
+    try:
+        param = pd.read_csv('model_parameters.csv', header=None)
+    except FileNotFoundError:
+        print("Parameter file not found. Regression line will not be shown.")
 
-    if 'km' not in df.columns or 'price' not in df.columns:
-        print("Error: The CSV file must contain 'km' and 'price' columns.")
-        return
-
-    plot_data(df)
-    # Normalize the features
-    df['km'] = (df['km'] - df['km'].mean()) / df['km'].std()
-    df['price'] = (df['price'] - df['price'].mean()) / df['price'].std()
-    plot_data(df)
+    plot_data(df, param)
 
 if __name__ == "__main__":
     main()

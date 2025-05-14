@@ -1,8 +1,13 @@
 import utils as utils
+import pandas as pd
 
 def main():
-    theta0 = 8499.599649933214
-    theta1 = -0.02144896359170229
+    try:
+        model_parameters = pd.read_csv('model_parameters.csv', header=None)
+        theta0, theta1 = model_parameters.iloc[0]
+    except FileNotFoundError:
+        print("Model parameters file not found. Please train the model first.")
+        return
 
     try:
         mileage = float(input("Enter the mileage of the car: "))
