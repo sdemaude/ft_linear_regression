@@ -1,7 +1,9 @@
 import numpy as np
 
+
 def estimate_price(mileage, theta0, theta1):
     return theta0 + (theta1 * mileage)
+
 
 def normalize_data(data):
     mean = sum(data) / len(data)
@@ -16,6 +18,7 @@ def normalize_data(data):
     normalized_data = np.array(normalized_data)
     
     return normalized_data, mean, std
+
 
 def denormalize_parameters(theta0, theta1, mileages_mean, mileages_std, prices_mean, prices_std):
     

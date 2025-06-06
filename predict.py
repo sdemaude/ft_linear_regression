@@ -1,5 +1,6 @@
-import utils as utils
+import utils
 import pandas as pd
+
 
 def main():
     try:
@@ -15,6 +16,7 @@ def main():
         print(f"Estimated price for a vehicule with a mileage of {mileage} km is: {estimated_price}")
     except ValueError:
         print("Invalid input. Please enter a numeric value for mileage.")
+
 
 if __name__ == "__main__":
     main()

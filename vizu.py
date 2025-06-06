@@ -1,6 +1,8 @@
+import os
 import pandas as pd
 import matplotlib.pyplot as plt
 import numpy as np
+
 
 def plot_data(df, param):
     x = df['km']
@@ -19,11 +21,15 @@ def plot_data(df, param):
     plt.xlabel('Mileage')
     plt.ylabel('Price')
     plt.title('Price vs Mileage with Regression Line')
-    plt.legend()
-    plt.grid(True)
+    plt.grid()
     plt.show()
 
+
 def main():
+    data_file = 'data.csv'
+    if not os.path.exists(data_file):
+        print(f"Error: The file '{data_file}' does not exist.")
+        return
     df = pd.read_csv('data.csv')
     param = pd.DataFrame()
     
