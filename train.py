@@ -22,7 +22,8 @@ def mean_squared_error(X, y, m, theta0, theta1):
 
 def init_plot(X, y):
     plt.ion() # Enable interactive mode for real-time updates
-    fig, ax = plt.subplots()
+    
+    _, ax = plt.subplots()
 
     ax.scatter(X, y, color='OliveDrab', label='Data')
     regression_line, = ax.plot([], [], color='LightCoral', label='Regression Line') # Empty line to be updated later
@@ -30,7 +31,7 @@ def init_plot(X, y):
     ax.set_xlabel('Mileage (normalized)')
     ax.set_ylabel('Price (normalized)')
     ax.legend()
-    return fig, ax, regression_line
+    return regression_line
 
 
 def update_plot(line, X, theta0, theta1):
@@ -52,7 +53,7 @@ def linear_regression(X, y, alpha=0.1, iterations=150, visualize=False):
     if visualize:
         alpha = 0.05
         iterations = 300
-        fig, ax, line = init_plot(X, y)
+        line = init_plot(X, y)
 
     for epoch in range(iterations):
         mse = mean_squared_error(X, y, m, theta0, theta1)
@@ -66,10 +67,10 @@ def linear_regression(X, y, alpha=0.1, iterations=150, visualize=False):
         sum_error_theta0 = 0
         sum_error_theta1 = 0
 
-        for j in range(m):
-            error = utils.estimate_price(X[j], theta0, theta1) - y[j]
+        for i in range(m):
+            error = utils.estimate_price(X[i], theta0, theta1) - y[i]
             sum_error_theta0 += error
-            sum_error_theta1 += error * X[j]
+            sum_error_theta1 += error * X[i]
 
         theta0 -= alpha * sum_error_theta0 / m
         theta1 -= alpha * sum_error_theta1 / m
