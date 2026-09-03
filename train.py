@@ -25,8 +25,8 @@ def init_plot(X, y):
     
     _, ax = plt.subplots()
 
-    ax.scatter(X, y, color='OliveDrab', label='Data')
-    regression_line, = ax.plot([], [], color='LightCoral', label='Regression Line') # Empty line to be updated later
+    ax.scatter(X, y, color='LightCoral', label='Data')
+    regression_line, = ax.plot([], [], color='OliveDrab', label='Regression Line') # Empty line to be updated later
 
     ax.set_xlabel('Mileage (normalized)')
     ax.set_ylabel('Price (normalized)')
@@ -94,6 +94,12 @@ def main():
         return
 
     data = pd.read_csv(data_file)
+    
+    required_columns = ['km', 'price']
+    if not all(col in data.columns for col in required_columns):
+        print(f"Missing required columns in the dataset. Expected columns: {required_columns}")
+        return
+
     X = data['km'].values
     y = data['price'].values
 
